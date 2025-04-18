@@ -1,0 +1,26 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - 11434:11434
+    volumes:
+      - ollama_data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+  backend:
+    image: classify_yt_comments
+    container_name: classify_yt_comments
+    environment:
+      OLLAMA_CONNECTION_STR: "http://ollama:11434"
+    build:
+      context: .
+      dockerfile: Dockerfile
+volumes:
+  ollama_data:
+    external: true
