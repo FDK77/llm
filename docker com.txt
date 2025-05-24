@@ -1,4 +1,0 @@
-docker run --rm -it --gpus=all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark
-docker run --rm --gpus=all -d -v ollama_data:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
-docker exec -it ollama ollama run gemma3:4b
-docker stop ollama

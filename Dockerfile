@@ -1,10 +1,13 @@
-FROM python:3.12-slim
+FROM python:3.11-slim
+
+RUN apt-get update && apt-get install -y gcc && \
+    pip install --upgrade pip
 
 WORKDIR /app
+COPY . .
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
-COPY classify.py prompt.txt ./
+EXPOSE 8000
 
-CMD ["python", "classify.py"]
+CMD ["python", "./main.py"]
